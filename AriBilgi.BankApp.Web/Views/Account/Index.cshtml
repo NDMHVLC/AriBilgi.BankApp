@@ -1,0 +1,54 @@
+﻿@using AriBilgi.BankApp.Web.Data.Entities
+@using AriBilgi.BankApp.Web.Models
+@model ApplicationUserDTO
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h3>Hesap Eklenecek Kişinin Bilgileri</h3>
+            <p>Adı Soyadı: @Model.Name @Model.Surname</p>
+            <p>Mevcut Hesap No: @Model.AccountCount</p>
+
+        </div>
+        <div class="col-md-6">
+            <h3>Yeni Hesap Ekle</h3>
+            <form action="/Account/Create" method="post">
+                <input class="d-none" name="ApplicationUserId" value="@Model.Id"/>
+                <div class="form-group">
+                    <label>Hesap No:</label>
+                    <input class="form-control" name="AccountNo" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <hr />
+    <div class="row mt-3">
+        <h3>Mevcut Hesapların Listesi</h3>
+        <table class="mt-1 table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <td>Hesap No</td>
+                    <td>Mevcut Bakiye</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Account item in Model.AccountList)
+                {
+                    <tr>
+                        <td>@item.AccountNo</td>
+                        <td>@item.Balance</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
